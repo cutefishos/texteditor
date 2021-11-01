@@ -713,6 +713,10 @@ void DocumentHandler::setFileUrl(const QUrl &url)
 
     m_fileUrl = url;
 
+    QFileInfo info(m_fileUrl.toLocalFile());
+    m_fileName = info.fileName();
+    emit fileNameChanged();
+
     load(m_fileUrl);
 
     emit fileUrlChanged();
@@ -1133,6 +1137,11 @@ void DocumentHandler::setEnableSyntaxHighlighting(const bool &value)
     }
 
     emit enableSyntaxHighlightingChanged();
+}
+
+QString DocumentHandler::fileName()
+{
+    return m_fileName;
 }
 
 bool DocumentHandler::enableSyntaxHighlighting() const

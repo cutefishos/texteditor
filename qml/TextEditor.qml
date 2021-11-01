@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQml 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 import FishUI 1.0 as FishUI
 import Cutefish.TextEditor 1.0
 
@@ -9,8 +10,11 @@ Item {
     id: control
 
     property alias fileUrl: document.fileUrl
-
+    property alias fileName: document.fileName
     property bool showLineNumbers: true
+
+    height: ListView.view.height
+    width: ListView.view.width
 
     DocumentHandler {
         id: document
@@ -34,8 +38,11 @@ Item {
         Keys.enabled: true
         Keys.forwardTo: body
 
+        contentWidth: availableWidth
+
         Flickable {
             id: _flickable
+
             boundsBehavior: Flickable.StopAtBounds
             boundsMovement: Flickable.StopAtBounds
 
@@ -130,12 +137,12 @@ Item {
                 id: _delegate
 
                 readonly property int line : index
-                property bool foldable : control.document.isFoldable(line)
+                // property bool foldable : control.document.isFoldable(line)
 
                 width:  ListView.view.width
                 height: Math.max(fontSize, document.lineHeight(line))
 
-                readonly property real fontSize: control.body.font.pointSize
+                readonly property real fontSize: 11//control.body.font.pointSize
                 readonly property bool isCurrentItem: ListView.isCurrentItem
 
 //                Connections {

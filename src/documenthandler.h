@@ -288,6 +288,8 @@ class DocumentHandler : public QObject
 
     Q_PROPERTY(bool findCaseSensitively MEMBER m_findCaseSensitively NOTIFY findCaseSensitivelyChanged)
 
+    Q_PROPERTY(QString fileName MEMBER m_fileName NOTIFY fileNameChanged)
+
 public:
     explicit DocumentHandler(QObject *parent = nullptr);
     ~DocumentHandler();
@@ -597,6 +599,8 @@ public:
         return (darkness > 0.5);
     }
 
+    QString fileName();
+
 public slots:
     /**
      * @brief load
@@ -711,6 +715,8 @@ signals:
     void findWholeWordsChanged();
 //     void cursorYPosChanged();
 
+    void fileNameChanged();
+
 private:
     void reset();
     void setStyle();
@@ -765,6 +771,8 @@ private:
     DocumentAlert *canNotSaveAlert(const QString &details);
 
     QTimer m_autoSaveTimer;
+
+    QString m_fileName;
 
     void refreshAllBlocks();
 };
