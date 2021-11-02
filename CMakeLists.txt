@@ -17,6 +17,7 @@ find_package(KF5SyntaxHighlighting)
 set(PROJECT_SOURCES
         src/main.cpp
         src/documenthandler.cpp
+        src/highlightmodel.cpp
         qml.qrc
 )
 

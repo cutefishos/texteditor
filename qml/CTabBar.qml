@@ -8,8 +8,6 @@ import FishUI 1.0 as FishUI
 TabBar {
     id: control
 
-    // property var model
-
     implicitWidth: _content.width
 
     default property alias content : _content.data
@@ -28,6 +26,7 @@ TabBar {
 
             ScrollView {
                 id: _scrollView
+
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -45,13 +44,13 @@ TabBar {
                         height: _scrollView.height
                     }
                 }
-
             }
 
             Loader {
                 active: control.newTabVisibile
                 visible: active
                 asynchronous: true
+
                 Layout.fillHeight: true
                 Layout.preferredWidth: visible ? height : 0
 

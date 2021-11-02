@@ -9,5 +9,6 @@
         <file>images/dark/close.svg</file>
         <file>images/light/add.svg</file>
         <file>images/light/close.svg</file>
+        <file>qml/TabCloseButton.qml</file>
     </qresource>
 </RCC>

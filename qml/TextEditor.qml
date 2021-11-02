@@ -30,6 +30,9 @@ Item {
             body.select(start, end)
         }
 
+        onFileSaved: {
+            root.showPassiveNotification(qsTr("Saved successfully"), 3000)
+        }
     }
 
     ScrollView {
@@ -73,6 +76,14 @@ Item {
                     color: FishUI.Theme.backgroundColor
                 }
 
+                Keys.enabled: true
+                Keys.onPressed: {
+                    if ((event.modifiers & Qt.ControlModifier) && (event.key === Qt.Key_S)) {
+                        control.save()
+                        event.accepted = true
+                    }
+                }
+
                 Loader {
                     id: _linesCounter
                     active: control.showLineNumbers && !document.isRich
@@ -96,8 +107,6 @@ Item {
 
         ListView {
             id: _linesCounterList
-//            anchors.fill: parent
-//            anchors.topMargin: body.topPadding + body.textMargin
             model: document.lineCount
             clip: true
 
@@ -187,5 +196,9 @@ Item {
             body.cursorPosition = document.goToLine(line - 1)
             body.forceActiveFocus()
         }
+    }
+
+    function save() {
+        document.saveAs(document.fileUrl)
     }
 }

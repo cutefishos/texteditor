@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.15
 import FishUI 1.0 as FishUI
 
 FishUI.Window {
+    id: root
     width: 640
     height: 480
     minimumWidth: 300
@@ -13,7 +14,13 @@ FishUI.Window {
     title: qsTr("Text Editor")
 
     headerItem: Item {
+        Rectangle {
+            anchors.fill: parent
+            color: FishUI.Theme.backgroundColor
+        }
+
         CTabBar {
+            id: _tabbar
             anchors.fill: parent
             anchors.margins: FishUI.Units.smallSpacing / 2
             anchors.rightMargin: FishUI.Units.largeSpacing * 2
@@ -31,7 +38,8 @@ FishUI.Window {
                 CTabButton {
                     text: _tabView.contentModel.get(index).fileName
                     implicitHeight: parent.height
-                    implicitWidth: parent.width / _repeater.count
+                    implicitWidth: _repeater.count === 1 ? 150
+                                                         : parent.width / _repeater.count
 
                     ToolTip.delay: 1000
                     ToolTip.timeout: 5000
@@ -96,13 +104,11 @@ FishUI.Window {
         id: textEditorCompeont
 
         TextEditor {
-            fileUrl: "file:///home/reion/Cutefish/core/notificationd/view.cpp"
+            fileUrl: ""
         }
     }
 
     Component.onCompleted: {
-        addTab()
-        addTab()
         addTab()
     }
 }

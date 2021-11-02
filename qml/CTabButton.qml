@@ -28,8 +28,8 @@ Item {
         anchors.leftMargin: FishUI.Units.smallSpacing / 2
         anchors.rightMargin: FishUI.Units.smallSpacing / 2
         anchors.topMargin: FishUI.Units.smallSpacing / 2
-        color: _mouseArea.containsMouse ? FishUI.Theme.textColor : "transparent"
-        opacity: _mouseArea.pressed ? 0.1 : 0.05
+        color: _mouseArea.containsMouse ? FishUI.Theme.textColor : FishUI.Theme.secondBackgroundColor
+        opacity: _mouseArea.containsMouse ? _mouseArea.pressed ? 0.1 : 0.05 : 1
         border.width: 0
         radius: FishUI.Theme.smallRadius
     }
@@ -56,6 +56,7 @@ Item {
 
         Label {
             text: control.text
+            leftPadding: FishUI.Units.smallSpacing / 2
             Layout.fillWidth: true
             Layout.fillHeight: true
             horizontalAlignment: Qt.AlignHCenter
@@ -66,12 +67,12 @@ Item {
             wrapMode: Text.NoWrap
         }
 
-        FishUI.RoundImageButton {
-            visible: control.checked
+        TabCloseButton {
+            enabled: control.checked
             Layout.preferredHeight: 24
             Layout.preferredWidth: 24
             size: 24
-            source: "qrc:/images/" + (FishUI.Theme.darkMode || control.checked ? "dark/" : "light/") + "close.svg"
+            source: !enabled ? "" : "qrc:/images/" + (FishUI.Theme.darkMode || control.checked ? "dark/" : "light/") + "close.svg"
             onClicked: control.closeClicked()
         }
     }
