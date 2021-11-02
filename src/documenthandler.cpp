@@ -454,7 +454,6 @@ void DocumentHandler::setDocument(QQuickTextDocument *document)
     if (this->textDocument()) {
         this->textDocument()->setModified(false);
         connect(this->textDocument(), &QTextDocument::modificationChanged, this, &DocumentHandler::modifiedChanged);
-
         connect(this->textDocument(), &QTextDocument::blockCountChanged, this, &DocumentHandler::lineCountChanged);
 
         //          connect(this->textDocument(), &QTextDocument::cursorPositionChanged, [this](const QTextCursor &)

@@ -7,21 +7,24 @@ import FishUI 1.0 as FishUI
 FishUI.Window {
     width: 640
     height: 480
+    minimumWidth: 300
+    minimumHeight: 300
     visible: true
     title: qsTr("Text Editor")
 
     headerItem: Item {
         TabBar {
             anchors.fill: parent
+            anchors.margins: FishUI.Units.smallSpacing / 2
 
-            currentIndex : _container.currentIndex
+            currentIndex : _tabView.currentIndex
 
             Repeater {
                 id: _repeater
-                model: _container.count
+                model: _tabView.count
 
                 TabButton {
-                    text: _container.contentModel.get(index).fileName
+                    text: _tabView.contentModel.get(index).fileName
                     implicitHeight: parent.height
                     implicitWidth: Math.max(parent.width / _repeater.count, 200)
 
@@ -30,14 +33,14 @@ FishUI.Window {
                     hoverEnabled: true
 
                     ToolTip.visible: hovered
-                    ToolTip.text: _container.contentModel.get(index).fileUrl
+                    ToolTip.text: _tabView.contentModel.get(index).fileUrl
 
                     leftPadding: FishUI.Units.smallSpacing
                     rightPadding: FishUI.Units.smallSpacing
 
                     onClicked: {
-                        _container.currentIndex = index
-                        _container.currentItem.forceActiveFocus()
+                        _tabView.currentIndex = index
+                        _tabView.currentItem.forceActiveFocus()
                     }
                 }
             }
@@ -48,67 +51,38 @@ FishUI.Window {
         anchors.fill: parent
         spacing: 0
 
-        Container {
-            id: _container
-
+        TabView {
+            id: _tabView
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            contentItem: ColumnLayout {
-                spacing: 0
-
-                ListView {
-                    id: _view
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    interactive: false
-                    orientation: ListView.Horizontal
-                    snapMode: ListView.SnapOneItem
-                    currentIndex: _container.currentIndex
-
-                    model: _container.contentModel
-
-                    boundsBehavior: Flickable.StopAtBounds
-                    boundsMovement :Flickable.StopAtBounds
-
-                    spacing: 0
-
-                    preferredHighlightBegin: 0
-                    preferredHighlightEnd: width
-
-                    highlightRangeMode: ListView.StrictlyEnforceRange
-                    highlightMoveDuration: 0
-                    highlightFollowsCurrentItem: true
-                    highlightResizeDuration: 0
-                    highlightMoveVelocity: -1
-                    highlightResizeVelocity: -1
-
-                    maximumFlickVelocity: 4 * width
-
-                    cacheBuffer: _view.count * width
-                    keyNavigationEnabled : false
-                    keyNavigationWraps : false
-                }
-            }
         }
 
         Item {
+            id: _bottomItem
+            z: 999
             Layout.fillWidth: true
-            Layout.preferredHeight: 20
+            Layout.preferredHeight: 20 + FishUI.Units.smallSpacing
+
+            Rectangle {
+                anchors.fill: parent
+                color: FishUI.Theme.backgroundColor
+            }
 
             ColumnLayout {
                 anchors.fill: parent
+                anchors.leftMargin: FishUI.Units.smallSpacing
+                anchors.rightMargin: FishUI.Units.smallSpacing
+                anchors.bottomMargin: FishUI.Units.smallSpacing
+
+                Label {
+                    text: qsTr("Characters %1").arg(_tabView.currentItem.characterCount)
+                }
             }
         }
     }
 
     function addTab() {
-        const component = textEditorCompeont
-        const object = component.createObject(_container.contentModel)
-
-        _container.addItem(object)
-        _container.currentIndex = Math.max(_container.count - 1, 0)
-        object.forceActiveFocus()
+        _tabView.addTab(textEditorCompeont, {})
     }
 
     Component {

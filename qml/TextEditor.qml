@@ -12,6 +12,7 @@ Item {
     property alias fileUrl: document.fileUrl
     property alias fileName: document.fileName
     property bool showLineNumbers: true
+    property int characterCount: body.text.length
 
     height: ListView.view.height
     width: ListView.view.width
@@ -70,17 +71,18 @@ Item {
 
                 Loader {
                     id: _linesCounter
-                    asynchronous: true
                     active: control.showLineNumbers && !document.isRich
+                    asynchronous: true
 
                     anchors.left: parent.left
                     anchors.top: parent.top
 
-                    height: Math.max(_flickable.contentHeight, control.height)
+                    height: _flickable.contentHeight
+
+                    // height: Math.max(_flickable.contentHeight, control.height)
                     width: active ? 32 : 0
 
                     sourceComponent: _linesCounterComponent
-
                 }
             }
         }
@@ -94,6 +96,7 @@ Item {
             anchors.fill: parent
             anchors.topMargin: body.topPadding + body.textMargin
             model: document.lineCount
+            clip: true
 
             Binding on currentIndex {
                 value: document.currentLineIndex

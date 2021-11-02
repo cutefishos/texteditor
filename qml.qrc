@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/TextEditor.qml</file>
+        <file>qml/TabView.qml</file>
     </qresource>
 </RCC>
