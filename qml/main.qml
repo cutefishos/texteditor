@@ -19,7 +19,7 @@ FishUI.Window {
             color: FishUI.Theme.backgroundColor
         }
 
-        CTabBar {
+        FishUI.TabBar {
             id: _tabbar
             anchors.fill: parent
             anchors.margins: FishUI.Units.smallSpacing / 2
@@ -35,7 +35,7 @@ FishUI.Window {
                 id: _repeater
                 model: _tabView.count
 
-                CTabButton {
+                FishUI.TabButton {
                     text: _tabView.contentModel.get(index).fileName
                     implicitHeight: parent.height
                     implicitWidth: _repeater.count === 1 ? 150
@@ -44,7 +44,7 @@ FishUI.Window {
                     ToolTip.delay: 1000
                     ToolTip.timeout: 5000
 
-                    checked: _tabView.currentIndex == index
+                    checked: _tabView.currentIndex === index
 
                     ToolTip.visible: hovered
                     ToolTip.text: _tabView.contentModel.get(index).fileUrl
@@ -66,7 +66,7 @@ FishUI.Window {
         anchors.fill: parent
         spacing: 0
 
-        TabView {
+        FishUI.TabView {
             id: _tabView
             Layout.fillWidth: true
             Layout.fillHeight: true
