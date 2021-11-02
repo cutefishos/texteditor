@@ -13,34 +13,41 @@ FishUI.Window {
     title: qsTr("Text Editor")
 
     headerItem: Item {
-        TabBar {
+        CTabBar {
             anchors.fill: parent
             anchors.margins: FishUI.Units.smallSpacing / 2
+            anchors.rightMargin: FishUI.Units.largeSpacing * 2
 
             currentIndex : _tabView.currentIndex
+
+            onNewTabClicked: {
+                addTab()
+            }
 
             Repeater {
                 id: _repeater
                 model: _tabView.count
 
-                TabButton {
+                CTabButton {
                     text: _tabView.contentModel.get(index).fileName
                     implicitHeight: parent.height
-                    implicitWidth: Math.max(parent.width / _repeater.count, 200)
+                    implicitWidth: parent.width / _repeater.count
 
                     ToolTip.delay: 1000
                     ToolTip.timeout: 5000
-                    hoverEnabled: true
+
+                    checked: _tabView.currentIndex == index
 
                     ToolTip.visible: hovered
                     ToolTip.text: _tabView.contentModel.get(index).fileUrl
 
-                    leftPadding: FishUI.Units.smallSpacing
-                    rightPadding: FishUI.Units.smallSpacing
-
                     onClicked: {
                         _tabView.currentIndex = index
                         _tabView.currentItem.forceActiveFocus()
+                    }
+
+                    onCloseClicked: {
+                        _tabView.closeTab(index)
                     }
                 }
             }

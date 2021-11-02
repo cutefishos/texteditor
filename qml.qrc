@@ -3,5 +3,11 @@
         <file>qml/main.qml</file>
         <file>qml/TextEditor.qml</file>
         <file>qml/TabView.qml</file>
+        <file>qml/CTabBar.qml</file>
+        <file>qml/CTabButton.qml</file>
+        <file>images/dark/add.svg</file>
+        <file>images/dark/close.svg</file>
+        <file>images/light/add.svg</file>
+        <file>images/light/close.svg</file>
     </qresource>
 </RCC>

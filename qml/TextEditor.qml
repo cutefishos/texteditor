@@ -47,6 +47,10 @@ Item {
             boundsBehavior: Flickable.StopAtBounds
             boundsMovement: Flickable.StopAtBounds
 
+            ScrollBar.vertical: ScrollBar {
+                policy: ScrollBar.AlwaysOff
+            }
+
             TextArea.flickable: TextArea {
                 id: body
                 text: document.text
@@ -74,12 +78,11 @@ Item {
                     active: control.showLineNumbers && !document.isRich
                     asynchronous: true
 
-                    anchors.left: parent.left
-                    anchors.top: parent.top
+                    anchors.left: body.left
+                    anchors.top: body.top
+                    anchors.topMargin: body.topPadding + body.textMargin
 
                     height: _flickable.contentHeight
-
-                    // height: Math.max(_flickable.contentHeight, control.height)
                     width: active ? 32 : 0
 
                     sourceComponent: _linesCounterComponent
@@ -93,8 +96,8 @@ Item {
 
         ListView {
             id: _linesCounterList
-            anchors.fill: parent
-            anchors.topMargin: body.topPadding + body.textMargin
+//            anchors.fill: parent
+//            anchors.topMargin: body.topPadding + body.textMargin
             model: document.lineCount
             clip: true
 
@@ -143,9 +146,8 @@ Item {
                 // property bool foldable : control.document.isFoldable(line)
 
                 width:  ListView.view.width
-                height: Math.max(fontSize, document.lineHeight(line))
+                height: document.lineHeight(line)
 
-                readonly property real fontSize: 11//control.body.font.pointSize
                 readonly property bool isCurrentItem: ListView.isCurrentItem
 
 //                Connections {
