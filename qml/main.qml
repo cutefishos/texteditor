@@ -25,38 +25,35 @@ FishUI.Window {
             anchors.margins: FishUI.Units.smallSpacing / 2
             anchors.rightMargin: FishUI.Units.largeSpacing * 2
 
+            model: _tabView.count
             currentIndex : _tabView.currentIndex
 
             onNewTabClicked: {
                 addTab()
             }
 
-            Repeater {
-                id: _repeater
-                model: _tabView.count
+            delegate: FishUI.TabButton {
+                id: _tabBtn
+                text: _tabView.contentModel.get(index).fileName
+                implicitHeight: _tabbar.height
+                implicitWidth: Math.min(_tabbar.width / _tabbar.count,
+                                        _tabBtn.contentWidth)
 
-                FishUI.TabButton {
-                    text: _tabView.contentModel.get(index).fileName
-                    implicitHeight: parent.height
-                    implicitWidth: _repeater.count === 1 ? 150
-                                                         : parent.width / _repeater.count
+                ToolTip.delay: 1000
+                ToolTip.timeout: 5000
 
-                    ToolTip.delay: 1000
-                    ToolTip.timeout: 5000
+                checked: _tabView.currentIndex === index
 
-                    checked: _tabView.currentIndex === index
+                ToolTip.visible: hovered
+                ToolTip.text: _tabView.contentModel.get(index).fileUrl
 
-                    ToolTip.visible: hovered
-                    ToolTip.text: _tabView.contentModel.get(index).fileUrl
+                onClicked: {
+                    _tabView.currentIndex = index
+                    _tabView.currentItem.forceActiveFocus()
+                }
 
-                    onClicked: {
-                        _tabView.currentIndex = index
-                        _tabView.currentItem.forceActiveFocus()
-                    }
-
-                    onCloseClicked: {
-                        _tabView.closeTab(index)
-                    }
+                onCloseClicked: {
+                    _tabView.closeTab(index)
                 }
             }
         }
@@ -104,7 +101,7 @@ FishUI.Window {
         id: textEditorCompeont
 
         TextEditor {
-            fileUrl: ""
+            fileUrl: "file:///home/cutefish/桌面/winepath"
         }
     }
 
