@@ -1,6 +1,8 @@
 # Text Editor
 
-Elegant text editor for Cutefish. 
+Elegant text editor for CutefishOS. 
+
+![screenshot](screenshots/Screenshot_20211221_212801.png)
 
 ## Dependencies
 
