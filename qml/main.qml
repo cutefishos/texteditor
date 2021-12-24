@@ -43,7 +43,7 @@ FishUI.Window {
 
             delegate: FishUI.TabButton {
                 id: _tabBtn
-                text: _tabView.contentModel.get(index).fileName
+                text: _tabView.contentModel.get(index).tabName
                 implicitHeight: _tabbar.height
                 implicitWidth: Math.min(_tabbar.width / _tabbar.count,
                                         _tabBtn.contentWidth)

@@ -9,6 +9,8 @@ import Cutefish.TextEditor 1.0
 Item {
     id: control
 
+    property var tabName: document.fileName + (document.modified ? " *" : "")
+
     property alias fileUrl: document.fileUrl
     property alias fileName: document.fileName
     property bool showLineNumbers: true
