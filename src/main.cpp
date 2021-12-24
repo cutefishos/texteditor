@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "documenthandler.h"
 #include "highlightmodel.h"
+#include "texteditor.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<DocumentHandler>("Cutefish.TextEditor", 1, 0, "DocumentHandler");
+    qmlRegisterType<FileHelper>("Cutefish.TextEditor", 1, 0, "FileHelper");
 
     HighlightModel m;
 

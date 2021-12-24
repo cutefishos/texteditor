@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import FishUI 1.0 as FishUI
+import Cutefish.TextEditor 1.0
 
 FishUI.Window {
     id: root
@@ -12,6 +13,14 @@ FishUI.Window {
     minimumHeight: 300
     visible: true
     title: qsTr("Text Editor")
+
+    FileHelper {
+        id: fileHelper
+
+        onNewPath: {
+            _tabView.addTab(textEditorCompeont, { fileUrl: path })
+        }
+    }
 
     headerItem: Item {
         Rectangle {
@@ -23,7 +32,7 @@ FishUI.Window {
             id: _tabbar
             anchors.fill: parent
             anchors.margins: FishUI.Units.smallSpacing / 2
-            anchors.rightMargin: FishUI.Units.largeSpacing * 2
+            anchors.rightMargin: FishUI.Units.largeSpacing * 4
 
             model: _tabView.count
             currentIndex : _tabView.currentIndex
@@ -59,6 +68,19 @@ FishUI.Window {
         }
     }
 
+    DropArea {
+        id: _dropArea
+        anchors.fill: parent
+
+        onDropped: {
+            if (drop.hasUrls) {
+                for (var i = 0; i < drop.urls.length; ++i) {
+                    fileHelper.addPath(drop.urls[i])
+                }
+            }
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -87,10 +109,15 @@ FishUI.Window {
                 anchors.bottomMargin: FishUI.Units.smallSpacing
 
                 Label {
-                    text: qsTr("Characters %1").arg(_tabView.currentItem.characterCount)
+                    text: _tabView.currentItem ? qsTr("Characters %1").arg(_tabView.currentItem.characterCount)
+                                               : ""
                 }
             }
         }
+    }
+
+    function addPath(path) {
+        _tabView.addTab(textEditorCompeont, { fileUrl: path })
     }
 
     function addTab() {
@@ -106,6 +133,6 @@ FishUI.Window {
     }
 
     Component.onCompleted: {
-        addTab()
+        // addTab()
     }
 }

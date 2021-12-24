@@ -14,8 +14,8 @@ Item {
     property bool showLineNumbers: true
     property int characterCount: body.text.length
 
-    height: ListView.view.height
-    width: ListView.view.width
+    height: ListView.view ? ListView.view.height : 0
+    width: ListView.view ? ListView.view.width : 0
 
     DocumentHandler {
         id: document
@@ -25,6 +25,7 @@ Item {
         selectionEnd: body.selectionEnd
         backgroundColor: FishUI.Theme.backgroundColor
         enableSyntaxHighlighting: true
+        theme: FishUI.Theme.darkMode ? "Breeze Dark" : "Breeze Light"
 
         onSearchFound: {
             body.select(start, end)
@@ -46,6 +47,11 @@ Item {
 
         Flickable {
             id: _flickable
+
+            FishUI.WheelHandler {
+                id: wheelHandler
+                target: _flickable
+            }
 
             boundsBehavior: Flickable.StopAtBounds
             boundsMovement: Flickable.StopAtBounds

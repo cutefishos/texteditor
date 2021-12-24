@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
         src/main.cpp
         src/documenthandler.cpp
         src/highlightmodel.cpp
+        src/texteditor.cpp
         qml.qrc
 )
 
