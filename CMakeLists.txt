@@ -32,3 +32,18 @@ target_link_libraries(cutefish-texteditor
   Qt5::Quick
   KF5::SyntaxHighlighting
   )
+
+# Let go of comments when adding internationalized files
+# file(GLOB TS_FILES translations/*.ts)
+# qt5_create_translation(QM_FILES ${TS_FILES})
+# add_custom_target(translations DEPENDS ${QM_FILES} SOURCES ${TS_FILES})
+# add_dependencies(${PROJECT_NAME} translations)
+# install(FILES ${QM_FILES} DESTINATION /usr/share/cutefish-texteditor/translations)
+
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES
+    cutefish-editor.desktop
+    DESTINATION /usr/share/applications/
+    COMPONENT Runtime
+)
