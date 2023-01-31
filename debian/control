@@ -4,11 +4,32 @@ Priority: optional
 Maintainer: The Simple Linux DE Develop Group <simplelinux@latex.ga>
 Build-Depends: cmake,
                debhelper (>= 9),
-               libkf5syntaxhighlighting-dev
+               libkf5syntaxhighlighting-dev,
+               extra-cmake-modules,
+               qtbase5-dev,
+               qtdeclarative5-dev,
+               qtquickcontrols2-5-dev,
+               qttools5-dev,
+               qttools5-dev-tools,
+               fishui,
+               libcutefish
 Standards-Version: 4.5.0
 Homepage: https://github.com/Simple-Linux-DE/texteditor
 
 Package: texteditor
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: qml-module-qtquick-controls2,
+         qml-module-qtquick2,
+         qml-module-qtquick-layouts,
+         qml-module-qt-labs-platform,
+         qml-module-qt-labs-settings,
+         qml-module-qtqml,
+         qml-module-qtquick-window2,
+         qml-module-qtquick-shapes,
+         qml-module-qtquick-dialogs,
+         qml-module-qtgraphicaleffects,
+         fishui,
+         libcutefish,
+         ${shlibs:Depends}, 
+         ${misc:Depends}
 Description: CutefishOS Texteditor
